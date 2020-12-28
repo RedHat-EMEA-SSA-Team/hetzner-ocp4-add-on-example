@@ -1,38 +1,52 @@
-Role Name
+hetzner-ocp4-add-on-example Role
 =========
 
-A brief description of the role goes here.
+This is an example add-on role for [hetzner-ocp4](https://github.com/RedHat-EMEA-SSA-Team/hetzner-ocp4)
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+An hetzner-ocp4 environment
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+No variables at the example
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+nothing
 
-Example Playbook
+Example hetzner-ocp4
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+[Install role wie CLI argument or requirements.yml](https://galaxy.ansible.com/docs/using/installing.html)
+```bash
+$ ansible-galaxy install git+https://github.com/RedHat-EMEA-SSA-Team/hetzner-ocp4-add-on-example.git
+```
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+```
+$ cat requirements.yml
+# from GitHub
+- src: https://github.com/RedHat-EMEA-SSA-Team/hetzner-ocp4-add-on-example
+
+$ ansible-galaxy install -r requirements.yml
+```
+
+Create add-ons.yml:
+```yaml
+  post_install_add_ons:
+    - name: hetzner-ocp4-add-on-example
+      tasks_from: "post-install.yaml"
+```
 
 License
 -------
 
-BSD
+Apache License 2.0
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Robert Bohne
