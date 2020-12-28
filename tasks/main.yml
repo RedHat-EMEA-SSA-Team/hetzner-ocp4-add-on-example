@@ -1,2 +1,47 @@
 ---
 # tasks file for hetzner-ocp4-add-on-example
+- name: Create namespace
+  k8s:
+    state: present
+    kubeconfig: "{{ k8s_kubeconfig }}"
+    host: "{{ k8s_host }}"
+    ca_cert: "{{ k8s_ca_cert }}"
+    client_cert: "{{ k8s_client_cert }}"
+    client_key: "{{ k8s_client_key }}"
+    definition:
+      apiVersion: v1
+      kind: Namespace
+      metadata:
+        name: hetzner-ocp4-add-on-example
+
+- name: Create Deployment
+  k8s:
+    state: present
+    kubeconfig: "{{ k8s_kubeconfig }}"
+    host: "{{ k8s_host }}"
+    ca_cert: "{{ k8s_ca_cert }}"
+    client_cert: "{{ k8s_client_cert }}"
+    client_key: "{{ k8s_client_key }}"
+    definition:
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: busybox
+        namespace: hetzner-ocp4-add-on-example
+        labels:
+          app: busybox
+      spec:
+        replicas: 3
+        selector:
+          matchLabels:
+            app: busybox
+        template:
+          metadata:
+            labels:
+              app: busybox
+          spec:
+            containers:
+            - name: busybox
+              image: busybox
+              command: [ "/bin/sh", "-c", "while true ; do date; sleep 1; done;" ]
+
